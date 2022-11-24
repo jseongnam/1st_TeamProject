@@ -4,4 +4,5 @@
 
 project_root --- crawling_data<br>
              --- crawling_1<br>
-             --- crawling_2
+             --- crawling_2<br>
+#data_type == .csv
