@@ -2,6 +2,6 @@
 
 # python version == 3.7
 
-project_root --- crawling_data
-              |-crawling_1
-              |-crawling_2
+#project_root --- crawling_data
+#              |-crawling_1
+#              |-crawling_2
