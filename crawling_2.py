@@ -39,7 +39,7 @@ for i in range(0,1):        #section
         df_section_title = pd.DataFrame(titles, columns=['titles'])
         df_section_title['category'] = category[i]
         df_titles = pd.concat([df_titles, df_section_title], ignore_index=True)
-        df_titles.to_csv('./crawling_data/crawling_data_{}'.format(category[i]),
+        df_titles.to_csv('./crawling_data/crawling_data_{}.csv'.format(category[i]),
                              index = False)
         titles = []
 
