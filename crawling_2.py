@@ -15,9 +15,9 @@ options.add_argument('lang=kr_KR')
 driver = webdriver.Chrome('./chromedriver.exe',options=options)
 
 df_titles = pd.DataFrame()
-for i in range(0,6):        #section
+for i in range(0,2):        #section
     titles = []
-    for j in range(1,11):     #page
+    for j in range(1,pages[i]):     #page
         url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=10{}#&date=%2000:00:00&page={}'.format(i,j)
         driver.get(url)
         time.sleep(0.2)

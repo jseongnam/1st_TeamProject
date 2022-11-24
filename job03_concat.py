@@ -11,4 +11,6 @@ for path in data_path:
 df.dropna(inplace = True)
 df.reset_index(inplace = True, drop = True)
 print(df.head())
-df.info
+df.info()
+df.to_csv('./crawling_data/naver_news_titles_{}.csv'.format(
+    datetime.datetime.now().strftime('%Y%m%d')), index = False)
