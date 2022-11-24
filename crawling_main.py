@@ -4,6 +4,8 @@ import pandas as pd
 import re
 import time
 import datetime
+from webdriver_manager.chrome import ChromeDriverManager
+
 
 category = ['Politics','Economic','Social','Culture','World','IT']
 pages = [101,101,101,71,94,73]
@@ -12,7 +14,7 @@ url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=100#&date=%2
 options = webdriver.ChromeOptions()
 # options.add_argument('headless')
 options.add_argument('lang=kr_KR')
-driver = webdriver.Chrome('./chromedriver.exe',options=options)
+driver = webdriver.Chrome(ChromeDriverManager().install(),options=options)
 
 df_titles = pd.DataFrame()
 for i in range(0,1):        #section
@@ -21,15 +23,15 @@ for i in range(0,1):        #section
         url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=100#&date=%2000:00:00&page={}'.format(j)
         driver.get(url)
         time.sleep(0.2)
-        for k in range(1,5):        #x_path
-            for l in range(1,6):    #x_path
-                x_path = '//*[@id="section_body"]/ul[{}]/li[{}]/dl/dt[2]/a'.format(k,l)
+        for k in range(1,9):        #x_path
+            for l in range(1,5):    #x_path
+                x_path = '//*[@id="main_content"]/div/div[2]/div[1]/div[{}]/div[1]/ul/li[{}]/div[2]/a'.format(k,l)
                 try:
                     title = driver.find_element('xpath',x_path).text
                     title = re.compile('[^가-힣 ]').sub(' ',title)
                     titles.append(title)
                 except NoSuchElementException as e :
-                    x_path = '//*[@id="section_body"]/ul[{}]/li[{}]/dl/dt/a'.format(k,l)
+                    x_path = '//*[@id="main_content"]/div/div[2]/div[1]/div[{}]/div[1]/ul/li[{}]/div/a'.format(k,l)
                     title = driver.find_element('xpath',x_path).text
                     title = re.compile('[^가-힣 ]').sub(' ', title)
                     titles.append(title)
@@ -39,7 +41,7 @@ for i in range(0,1):        #section
         df_section_title = pd.DataFrame(titles, columns=['titles'])
         df_section_title['category'] = category[i]
         df_titles = pd.concat([df_titles, df_section_title], ignore_index=True)
-        df_titles.to_csv('./crawling_data/crawling_data_{}.csv'.format(category[i]),
+        df_titles.to_csv('./crawling_data/crawling_data_main_{}.csv'.format(category[i]),
                              index = False)
         titles = []
 
